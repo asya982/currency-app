@@ -1,0 +1,14 @@
+.navbar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.navbar a:hover {
+    color: var(--primary);
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+}
