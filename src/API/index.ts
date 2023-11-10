@@ -1,9 +1,13 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: `${process.env.REACT_APP_API}latest?access_key=${process.env.REACT_APP_API_KEY}`,
+  baseURL: `https://${process.env.REACT_APP_API}/`,
   headers: {
     "Content-Type": "application/json",
+  },
+  auth: {
+    username: `${process.env.REACT_APP_API_ID}`,
+    password: `${process.env.REACT_APP_API_KEY}`,
   },
 });
 

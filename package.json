@@ -38,6 +38,16 @@
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "*.jsx"
+        ],
+        "rules": {
+          "react-hooks/exhaustive-deps": 0
+        }
+      }
     ]
   },
   "browserslist": {

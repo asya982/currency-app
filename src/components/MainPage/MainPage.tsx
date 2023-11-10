@@ -1,7 +1,9 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./MainPage.module.css";
 import CurrencyItem from "./components/CurrencyItem/CurrencyItem";
 import { IconButton, Tooltip } from "@mui/material";
+import { CurrencyExchange } from "@mui/icons-material";
+import { currencyAPI } from "../../API/currencyAPI";
 
 const MainPage: FC = () => {
   const [initialItem, setInitialItem] = useState("");
@@ -9,18 +11,31 @@ const MainPage: FC = () => {
   const [initialCurrency, setInitialCurrency] = useState("");
   const [changedCurrency, setChangedCurrency] = useState("");
 
-  const changeInitial = () => {};
-
   const changePlaces = () => {
-    const [newInitial, newChanged] = [changedItem, initialItem];
+    const [newInitial, newChanged, newInitialCurrency, newChangedCurrency] = [
+      changedItem,
+      initialItem,
+      changedCurrency,
+      initialCurrency,
+    ];
     setInitialItem(newInitial);
     setChangedItem(newChanged);
+    setInitialCurrency(newInitialCurrency);
+    setChangedCurrency(newChangedCurrency);
   };
 
-  const fetchCurrency = () => {
+  const fetchCurrency = async (from: string, to: string, amount: string) => {
     try {
+      const { data } = await currencyAPI.convertData(from, to, amount);
+      setChangedItem(Number(data.from[0].mid).toFixed(2));
     } catch (error) {}
   };
+
+  useEffect(() => {
+    if (initialItem && initialCurrency && changedCurrency) {
+      fetchCurrency(changedCurrency, initialCurrency, initialItem);
+    }
+  }, [initialItem, initialCurrency, changedCurrency]);
 
   return (
     <article className={styles.MainPage}>
@@ -33,8 +48,10 @@ const MainPage: FC = () => {
           currency={initialCurrency}
           inputDisabled={false}
         />
-        <Tooltip title="Change places">
-          <IconButton onClick={changePlaces}></IconButton>
+        <Tooltip title="Change places" arrow>
+          <IconButton onClick={changePlaces}>
+            <CurrencyExchange color="secondary" />
+          </IconButton>
         </Tooltip>
         <CurrencyItem
           value={changedItem}

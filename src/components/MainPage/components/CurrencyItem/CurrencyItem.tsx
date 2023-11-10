@@ -1,6 +1,8 @@
 import { FC } from "react";
 import Input from "../../../shared/Input/Input";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useSelector } from "react-redux";
+import { getSymbols } from "../../../../store/symbolsSlice";
 
 type CurrencyItemProps = {
   currency: string;
@@ -15,21 +17,25 @@ const CurrencyItem: FC<CurrencyItemProps> = ({
   setCurrency,
   setValue,
   value,
-  inputDisabled
+  inputDisabled,
 }) => {
+  const symbols = useSelector(getSymbols);
   return (
     <div>
       <Input {...{ handleChange: setValue, value, inputDisabled }} />
-      <FormControl fullWidth>
+      <FormControl>
         <InputLabel id="select-currency-label">Currency</InputLabel>
         <Select
           value={currency}
           label="Currency"
           onChange={(e) => setCurrency(e.target.value)}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {symbols.length &&
+            symbols?.map((el, index) => (
+              <MenuItem value={el.iso} key={index}>
+                {el.iso}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
     </div>

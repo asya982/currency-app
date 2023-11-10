@@ -26,6 +26,10 @@ a {
 header {
   display: flex;
   justify-content: space-between;
+  height: 10vh;
+  width: 100%;
+  padding: 20px;
+  align-items: center;
 }
 
 #root {
@@ -35,4 +39,8 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.app-container {
+  flex: 1;
 }

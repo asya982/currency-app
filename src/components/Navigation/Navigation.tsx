@@ -1,7 +1,10 @@
 import { Box, Drawer, IconButton } from "@mui/material";
 import { FC } from "react";
 import NavItems from "./NavItems";
-import { CloseOutlined, MiscellaneousServices } from "@mui/icons-material";
+import {
+  CloseOutlined,
+  Menu,
+} from "@mui/icons-material";
 import styles from "./Navigation.module.css";
 
 type NavigationProps = {
@@ -23,14 +26,12 @@ const Navigation: FC<NavigationProps> = ({ open, setOpen }) => {
         aria-label="open drawer"
         edge="end"
         onClick={handleDrawerToggle}
-        sx={{ mr: 2, display: { md: "none" } }}
       >
-        <MiscellaneousServices />
+        <Menu color="secondary" />
       </IconButton>
       <Box
         component="nav"
         sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
-        aria-label="mailbox folders"
       >
         <Drawer
           variant="temporary"

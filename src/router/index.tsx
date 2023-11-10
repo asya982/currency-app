@@ -3,11 +3,16 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import MainPage from "../components/MainPage/MainPage";
 import AboutPage from "../components/AboutPage/AboutPage";
+import { store } from "../store";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    ),
     children: [
       { index: true, element: <MainPage /> },
       { path: "about", element: <AboutPage /> },
