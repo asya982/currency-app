@@ -20,7 +20,7 @@ const Navigation: FC<NavigationProps> = ({ open, setOpen }) => {
   };
 
   return (
-    <>
+    <div>
       <IconButton
         color="inherit"
         aria-label="open drawer"
@@ -61,7 +61,7 @@ const Navigation: FC<NavigationProps> = ({ open, setOpen }) => {
           <NavItems />
         </Drawer>
       </Box>
-    </>
+    </div>
   );
 };
 

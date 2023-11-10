@@ -40,7 +40,7 @@ const MainPage: FC = () => {
   return (
     <article className={styles.MainPage}>
       <h1>Currency</h1>
-      <section>
+      <section className={styles.currencyFields}>
         <CurrencyItem
           value={initialItem}
           setCurrency={setInitialCurrency}
@@ -49,7 +49,7 @@ const MainPage: FC = () => {
           inputDisabled={false}
         />
         <Tooltip title="Change places" arrow>
-          <IconButton onClick={changePlaces}>
+          <IconButton onClick={changePlaces} className={styles.revertBtn}>
             <CurrencyExchange color="secondary" />
           </IconButton>
         </Tooltip>

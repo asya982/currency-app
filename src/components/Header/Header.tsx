@@ -6,7 +6,7 @@ const Header: FC = () => {
   const [open, setOpen] = useState(false);
   return (
     <header>
-      <section>{moment().format("DD MMM")}</section>
+      <aside>{moment().format("DD MMM")}</aside>
       <Navigation open={open} setOpen={setOpen} />
     </header>
   );

@@ -12,12 +12,20 @@ const Input: FC<InputProps> = ({
   handleChange,
   inputDisabled = false,
 }) => {
+  const changeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (isNaN(Number(value))) return;
+    handleChange(value);
+  };
   return (
     <TextField
       label="Amount"
       value={value}
-      onChange={(event) => handleChange(event.target.value)}
-      disabled={inputDisabled}
+      onChange={changeInput}
+      InputProps={{
+        readOnly: inputDisabled,
+      }}
+      variant='standard'
     />
   );
 };

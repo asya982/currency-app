@@ -32,7 +32,7 @@ const CurrencyItem: FC<CurrencyItemProps> = ({
         >
           {symbols.length &&
             symbols?.map((el, index) => (
-              <MenuItem value={el.iso} key={index}>
+              <MenuItem value={el.iso} key={index} selected={index === 0}>
                 {el.iso}
               </MenuItem>
             ))}
