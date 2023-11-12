@@ -20,14 +20,14 @@ const Navigation: FC<NavigationProps> = ({ open, setOpen }) => {
   };
 
   return (
-    <div>
+    <div className={styles.navigation}>
       <IconButton
         color="inherit"
         aria-label="open drawer"
         edge="end"
         onClick={handleDrawerToggle}
       >
-        <Menu color="secondary" />
+        <Menu color="inherit" />
       </IconButton>
       <Box
         component="nav"
@@ -41,7 +41,6 @@ const Navigation: FC<NavigationProps> = ({ open, setOpen }) => {
             keepMounted: true,
           }}
           sx={{
-            display: { sm: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,

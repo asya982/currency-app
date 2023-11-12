@@ -12,3 +12,7 @@
     display: flex;
     justify-content: space-between;
 }
+
+.navigation{
+    width: 40px;
+}

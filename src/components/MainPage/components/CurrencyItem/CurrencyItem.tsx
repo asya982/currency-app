@@ -1,8 +1,9 @@
 import { FC } from "react";
 import Input from "../../../shared/Input/Input";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 import { useSelector } from "react-redux";
 import { getSymbols } from "../../../../store/symbolsSlice";
+import styles from "./CurrencyItem.module.css";
 
 type CurrencyItemProps = {
   currency: string;
@@ -10,6 +11,7 @@ type CurrencyItemProps = {
   setValue: (currency: string) => void;
   value: string;
   inputDisabled?: boolean;
+  label?: string;
 };
 
 const CurrencyItem: FC<CurrencyItemProps> = ({
@@ -18,27 +20,37 @@ const CurrencyItem: FC<CurrencyItemProps> = ({
   setValue,
   value,
   inputDisabled,
+  label,
 }) => {
   const symbols = useSelector(getSymbols);
+  const initialCurrency =
+    symbols.find((symbol) => symbol.iso === currency) || null;
+
   return (
-    <div>
-      <Input {...{ handleChange: setValue, value, inputDisabled }} />
-      <FormControl>
-        <InputLabel id="select-currency-label">Currency</InputLabel>
-        <Select
-          value={currency}
-          label="Currency"
-          onChange={(e) => setCurrency(e.target.value)}
-        >
-          {symbols.length &&
-            symbols?.map((el, index) => (
-              <MenuItem value={el.iso} key={index} selected={index === 0}>
-                {el.iso}
-              </MenuItem>
-            ))}
-        </Select>
-      </FormControl>
-    </div>
+    <>
+      {symbols.length && (
+        <div className={styles.item}>
+          <Input {...{ handleChange: setValue, value, inputDisabled, label }} />
+          <Autocomplete
+            id="currency-select"
+            options={symbols}
+            renderInput={(params) => (
+              <TextField
+                variant="standard"
+                color="secondary"
+                {...params}
+                label="Currency"
+                sx={{ width: "fit-content" }}
+              />
+            )}
+            getOptionLabel={(option) => option.iso}
+            onChange={(e, newValue) => newValue && setCurrency(newValue?.iso)}
+            value={initialCurrency}
+            sx={{ width: "fit-content" }}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

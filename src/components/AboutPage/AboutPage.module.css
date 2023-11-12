@@ -1,0 +1,13 @@
+.aboutPage {
+    display: flex;
+    gap: 30px;
+}
+
+.aboutPage img {
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.aboutPage>img {
+    max-width: 300px;
+}

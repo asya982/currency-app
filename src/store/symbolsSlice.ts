@@ -1,16 +1,17 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Slice, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import { currencyAPI } from "../API/currencyAPI";
+import { Symbol } from "../types";
 
 interface SymbolsState {
-  symbols: { iso: string; currency_name: string }[];
+  symbols: Symbol[];
 }
 
 const initialState: SymbolsState = {
   symbols: [],
 };
 
-export const symbolsSlice = createSlice({
+export const symbolsSlice: Slice = createSlice({
   name: "symbols",
   initialState,
   reducers: {},
@@ -19,6 +20,7 @@ export const symbolsSlice = createSlice({
       state.symbols = action.payload.map((el) => ({
         iso: el.iso,
         currency_name: el.currency_name,
+        currency_symbol: el.currency_symbol,
       }));
     });
   },
@@ -32,6 +34,6 @@ export const fetchSymbols = createAsyncThunk(
   }
 );
 
-export const getSymbols = (state: RootState) => state.symbols.symbols;
+export const getSymbols = (state: RootState): Symbol[] => state.symbols.symbols;
 
 export default symbolsSlice.reducer;

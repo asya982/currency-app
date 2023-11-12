@@ -4,6 +4,8 @@ import App from "../App";
 import MainPage from "../components/MainPage/MainPage";
 import AboutPage from "../components/AboutPage/AboutPage";
 import { store } from "../store";
+import RatesPage from "../components/RatesPage/RatesPage";
+import { loadCurrenciesList } from "./loaders";
 
 export const routes = createBrowserRouter([
   {
@@ -16,7 +18,7 @@ export const routes = createBrowserRouter([
     children: [
       { index: true, element: <MainPage /> },
       { path: "about", element: <AboutPage /> },
-      { path: "rates", element: <div> rates</div> },
+      { path: "rates", element: <RatesPage />, loader: loadCurrenciesList },
     ],
   },
 ]);

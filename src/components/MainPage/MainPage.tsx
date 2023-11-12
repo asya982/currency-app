@@ -4,8 +4,10 @@ import CurrencyItem from "./components/CurrencyItem/CurrencyItem";
 import { IconButton, Tooltip } from "@mui/material";
 import { CurrencyExchange } from "@mui/icons-material";
 import { currencyAPI } from "../../API/currencyAPI";
+import { useSearchParams } from "react-router-dom";
 
 const MainPage: FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [initialItem, setInitialItem] = useState("");
   const [changedItem, setChangedItem] = useState("");
   const [initialCurrency, setInitialCurrency] = useState("");
@@ -24,18 +26,30 @@ const MainPage: FC = () => {
     setChangedCurrency(newChangedCurrency);
   };
 
-  const fetchCurrency = async (from: string, to: string, amount: string) => {
+  const fetchCurrency = async (from: string, to: string, amount: number) => {
     try {
       const { data } = await currencyAPI.convertData(from, to, amount);
-      setChangedItem(Number(data.from[0].mid).toFixed(2));
+      setChangedItem(data.to[0].mid);
     } catch (error) {}
+  };
+
+  const syncCurrency = (param: string, value: string): void => {
+    const currentParam = searchParams.get(param);
+    if (currentParam !== value) {
+      searchParams.set(param, value);
+    }
   };
 
   useEffect(() => {
     if (initialItem && initialCurrency && changedCurrency) {
-      fetchCurrency(changedCurrency, initialCurrency, initialItem);
+      fetchCurrency(initialCurrency, changedCurrency, Number(initialItem));
     }
   }, [initialItem, initialCurrency, changedCurrency]);
+
+  useEffect(() => {
+    syncCurrency("from", initialCurrency);
+    syncCurrency("to", changedCurrency);
+  }, [initialCurrency, changedCurrency]);
 
   return (
     <article className={styles.MainPage}>
@@ -50,7 +64,7 @@ const MainPage: FC = () => {
         />
         <Tooltip title="Change places" arrow>
           <IconButton onClick={changePlaces} className={styles.revertBtn}>
-            <CurrencyExchange color="secondary" />
+            <CurrencyExchange color="inherit" />
           </IconButton>
         </Tooltip>
         <CurrencyItem
@@ -59,6 +73,7 @@ const MainPage: FC = () => {
           setValue={setChangedItem}
           currency={changedCurrency}
           inputDisabled={true}
+          label="Converted value"
         />
       </section>
     </article>
