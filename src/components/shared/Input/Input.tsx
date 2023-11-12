@@ -1,6 +1,5 @@
 import { TextField } from "@mui/material";
 import { FC } from "react";
-import { debounce } from "lodash";
 
 type InputProps = {
   handleChange: (value: string) => void;
@@ -18,9 +17,7 @@ const Input: FC<InputProps> = ({
   const changeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     if (isNaN(Number(value))) return;
-    debounce(() => {
-      handleChange(value);
-    }, 1000);
+    handleChange(value);
   };
   return (
     <TextField

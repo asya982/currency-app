@@ -10,8 +10,13 @@ const MainPage: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [initialItem, setInitialItem] = useState("");
   const [changedItem, setChangedItem] = useState("");
-  const [initialCurrency, setInitialCurrency] = useState("");
-  const [changedCurrency, setChangedCurrency] = useState("");
+  const [error, setError] = useState(null);
+  const [initialCurrency, setInitialCurrency] = useState(
+    searchParams.get("from") || ""
+  );
+  const [changedCurrency, setChangedCurrency] = useState(
+    searchParams.get("to") || ""
+  );
 
   const changePlaces = () => {
     const [newInitial, newChanged, newInitialCurrency, newChangedCurrency] = [
@@ -30,13 +35,19 @@ const MainPage: FC = () => {
     try {
       const { data } = await currencyAPI.convertData(from, to, amount);
       setChangedItem(data.to[0].mid);
-    } catch (error) {}
+    } catch (error: any) {
+      setError(error.message);
+    }
   };
 
   const syncCurrency = (param: string, value: string): void => {
+    if (!value) return;
     const currentParam = searchParams.get(param);
     if (currentParam !== value) {
-      searchParams.set(param, value);
+      setSearchParams({
+        ...Object.fromEntries([...searchParams]),
+        [param]: value,
+      });
     }
   };
 
@@ -64,7 +75,7 @@ const MainPage: FC = () => {
         />
         <Tooltip title="Change places" arrow>
           <IconButton onClick={changePlaces} className={styles.revertBtn}>
-            <CurrencyExchange color="inherit" />
+            <CurrencyExchange color="secondary" />
           </IconButton>
         </Tooltip>
         <CurrencyItem
@@ -76,6 +87,7 @@ const MainPage: FC = () => {
           label="Converted value"
         />
       </section>
+      {error && <p>{error}</p>}
     </article>
   );
 };

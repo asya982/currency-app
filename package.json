@@ -40,16 +40,9 @@
       "react-app",
       "react-app/jest"
     ],
-    "overrides": [
-      {
-        "files": [
-          "*.jsx"
-        ],
-        "rules": {
-          "react-hooks/exhaustive-deps": 0
-        }
-      }
-    ]
+    "rules": {
+      "react-hooks/exhaustive-deps": 0
+    }
   },
   "browserslist": {
     "production": [
@@ -61,6 +54,20 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "babel-jest": "^29.7.0",
+    "redux-mock-store": "^1.5.4"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!@babel).+\\.js$"
     ]
   }
 }

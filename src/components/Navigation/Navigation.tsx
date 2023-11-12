@@ -1,10 +1,7 @@
 import { Box, Drawer, IconButton } from "@mui/material";
 import { FC } from "react";
 import NavItems from "./NavItems";
-import {
-  CloseOutlined,
-  Menu,
-} from "@mui/icons-material";
+import { CloseOutlined, Menu } from "@mui/icons-material";
 import styles from "./Navigation.module.css";
 
 type NavigationProps = {
@@ -53,7 +50,10 @@ const Navigation: FC<NavigationProps> = ({ open, setOpen }) => {
         >
           <div className={styles.title}>
             <h3>Currency app</h3>
-            <IconButton onClick={() => setOpen(false)}>
+            <IconButton
+              onClick={() => setOpen(false)}
+              aria-label="close drawer"
+            >
               <CloseOutlined />
             </IconButton>
           </div>

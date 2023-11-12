@@ -37,16 +37,15 @@ const CurrencyItem: FC<CurrencyItemProps> = ({
             renderInput={(params) => (
               <TextField
                 variant="standard"
-                color="secondary"
                 {...params}
                 label="Currency"
-                sx={{ width: "fit-content" }}
+
               />
             )}
             getOptionLabel={(option) => option.iso}
             onChange={(e, newValue) => newValue && setCurrency(newValue?.iso)}
             value={initialCurrency}
-            sx={{ width: "fit-content" }}
+            sx={{ width: "100px" }}
           />
         </div>
       )}

@@ -1,6 +1,16 @@
 .aboutPage {
     display: flex;
     gap: 30px;
+    padding: 20px;
+    align-items: center;
+    flex-direction: column;
+    color: var(--primary);
+    background-color: white;
+}
+
+.aboutPage a {
+    color: var(--primary);
+    font-weight: bold;
 }
 
 .aboutPage img {
@@ -9,5 +19,30 @@
 }
 
 .aboutPage>img {
-    max-width: 300px;
+    max-width: 400px;
+}
+
+.accordionBody {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.accordionBody ul {
+    margin-left: 30px;
+}
+
+.accordionBody img {
+    width: 200px;
+    align-self: center;
+}
+
+.wishes {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.aboutPage >div {
+    max-width: 400px;
 }

@@ -1,6 +1,7 @@
 .navbar {
     display: flex;
     flex-direction: column;
+    flex: 1;
     gap: 15px;
 }
 
@@ -11,8 +12,19 @@
 .title {
     display: flex;
     justify-content: space-between;
+    color: var(--secondary);
 }
 
-.navigation{
+.navigation {
     width: 40px;
+}
+
+.link {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.active {
+    color: var(--primary);
+    text-decoration: underline;
 }

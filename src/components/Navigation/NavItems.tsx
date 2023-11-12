@@ -6,7 +6,16 @@ const NavItems: FC = () => {
   const WithActiveNav: FC<{ to: string; linkName: string }> = ({
     to,
     linkName,
-  }) => <NavLink to={`/${to}`}>{linkName}</NavLink>;
+  }) => (
+    <NavLink
+      to={`/${to}`}
+      className={({ isActive }) =>
+        `${isActive ? styles.active : ""} ${styles.link}`
+      }
+    >
+      {linkName}
+    </NavLink>
+  );
   return (
     <nav className={styles.navbar}>
       <WithActiveNav to={""} linkName={"Main page"} />

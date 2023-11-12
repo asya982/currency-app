@@ -1,5 +1,5 @@
 import { FC } from "react";
-import meme from "../../assets/images/michael.jpg";
+import money from "../../assets/images/money.jpg";
 import onePiece from "../../assets/images/thePromiseWeMade.jpg";
 import styles from "./AboutPage.module.css";
 import {
@@ -14,7 +14,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const AboutPage: FC = () => {
   return (
     <section className={styles.aboutPage}>
-      <img src={meme} alt="Michael from the Office" />
+      <h1>About</h1>
+      <img src={money} alt="Money from CK Jeans" />
       <div>
         <Accordion>
           <AccordionSummary
@@ -22,34 +23,49 @@ const AboutPage: FC = () => {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography>About the Currency app</Typography>
+            <Typography color={"var(--primary)"}>
+              About the Currency app
+            </Typography>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails className={styles.accordionBody}>
             <p>
               This app is designed for easy and pleasant conversion currencies{" "}
             </p>
             <ul>
               Pages structure
               <li>
-                Main page - there you can convert from one currency to another{" "}
+                <b>Main page</b> - there you can convert from one currency to
+                another{" "}
               </li>
               <li>
-                Rates page - there you can see top 10 most popular currencies
-                and there conversion to 100 UAH. You can also convert to those
-                currencies{" "}
+                <b>Rates page</b> - there you can see top 10 most popular
+                currencies and there conversion to 100 UAH. You can also convert
+                to those currencies{" "}
               </li>
               <li>
-                About page - You are here now! This page contains information
-                about developer and this app, feel free to investigate it!{" "}
+                <b>About page</b> - You are here now! This page contains
+                information about developer and this app, feel free to
+                investigate it!{" "}
               </li>
             </ul>
+            <p>
+              You can see the source code in the{" "}
+              <a
+                id="link"
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/asya982/currency-app"
+              >
+                Git hub
+              </a>
+            </p>
           </AccordionDetails>
         </Accordion>
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>About me</Typography>
+            <Typography color={"var(--primary)"}>About me</Typography>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails className={styles.accordionBody}>
             <p>
               I’m an young front-end develop, which has a dream to become the
               world’s greatest software developer!
@@ -61,11 +77,12 @@ const AboutPage: FC = () => {
             <ul>
               Here my recommendations for you:
               <li>One piece (is real btw)</li>
-              <li>
-                Fleabag <li>The office</li>
-              </li>
+              <li>Fleabag</li>
+              <li>The office</li>
             </ul>
-            Have a nice day <AutoAwesome />
+            <div className={styles.wishes}>
+              Have a nice day <AutoAwesome color="warning" />
+            </div>
             <img src={onePiece} alt="Straw hats crew" />
           </AccordionDetails>
         </Accordion>

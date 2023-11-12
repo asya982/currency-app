@@ -1,19 +1,17 @@
 import { FC, useEffect, useState } from "react";
 import styles from "./RatesPage.module.css";
 import CurrencyItem from "../MainPage/components/CurrencyItem/CurrencyItem";
-import { useLoaderData } from "react-router-dom";
 import CurrencyTable from "./components/CurrencyTable";
 import { useSelector } from "react-redux";
 import { getSymbols } from "../../store/symbolsSlice";
 import { currencyAPI } from "../../API/currencyAPI";
-import { FetchedList } from "../../types";
+import { Currency, FetchedList } from "../../types";
 import { currenciesList } from "../../assets/constants/currencies";
 
 const RatesPage: FC = () => {
-  const [value, setValue] = useState("10");
+  const [value, setValue] = useState("100");
   const [currency, setCurrency] = useState("UAH");
   const symbols = useSelector(getSymbols);
-  const fetchedList = useLoaderData() as Array<FetchedList>;
 
   const formatList = (list: FetchedList[]) =>
     list.map((el) => {
@@ -26,7 +24,7 @@ const RatesPage: FC = () => {
       };
     });
 
-  const [currencyList, setCurrencyList] = useState(formatList(fetchedList));
+  const [currencyList, setCurrencyList] = useState<Currency[]>([]);
 
   const fetchConvert = async (
     from: string,
@@ -44,14 +42,16 @@ const RatesPage: FC = () => {
   };
 
   useEffect(() => {
-    fetchConvert(currency, currenciesList.join(","), Number(value));
-  }, [value, currency]);
+    if (symbols.length) {
+      fetchConvert(currency, currenciesList.join(","), Number(value));
+    }
+  }, [value, currency, symbols]);
 
   return (
     <section className={styles.ratesPage}>
       <h1>Get exchange for most popular currencies</h1>
       <CurrencyItem {...{ currency, setCurrency, setValue, value }} />
-      {symbols.length && currencyList.length && (
+      {symbols.length && currenciesList.length && (
         <CurrencyTable items={currencyList} />
       )}
     </section>
