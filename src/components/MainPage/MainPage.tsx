@@ -9,7 +9,7 @@ import { useSearchParams } from "react-router-dom";
 const MainPage: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [initialItem, setInitialItem] = useState("");
-  const [changedItem, setChangedItem] = useState("");
+  const [changedItem, setChangedItem] = useState("0");
   const [error, setError] = useState(null);
   const [initialCurrency, setInitialCurrency] = useState(
     searchParams.get("from") || ""

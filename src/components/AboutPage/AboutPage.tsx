@@ -67,7 +67,7 @@ const AboutPage: FC = () => {
           </AccordionSummary>
           <AccordionDetails className={styles.accordionBody}>
             <p>
-              I’m an young front-end develop, which has a dream to become the
+              I’m an young front-end developer, which has a dream to become the
               world’s greatest software developer!
             </p>
             <p>

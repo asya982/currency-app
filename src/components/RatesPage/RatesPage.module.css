@@ -6,4 +6,16 @@
     color: white;
     gap: 30px;
     align-items: center;
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.Value {
+    min-width: 300px;
+}
+
+@media screen and (max-width: 700px) {
+    .Value {
+        min-width: 50px;
+    }
 }

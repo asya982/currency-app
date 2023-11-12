@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { FC } from "react";
 import { Currency } from "../../../types";
+import styles from "../RatesPage.module.css";
 
 type CurrencyTableProps = {
   items: Array<Currency>;
@@ -32,7 +33,7 @@ const CurrencyTable: FC<CurrencyTableProps> = ({ items }) => {
               <TableCell>{el?.currency_symbol}</TableCell>
               <TableCell>{el?.iso}</TableCell>
               <TableCell>{el?.currency_name}</TableCell>
-              <TableCell>{el?.value}</TableCell>
+              <TableCell className={styles.Value}>{el?.value}</TableCell>
             </TableRow>
           ))}
         </TableBody>
