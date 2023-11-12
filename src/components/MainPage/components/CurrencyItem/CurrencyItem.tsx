@@ -9,7 +9,7 @@ type CurrencyItemProps = {
   setCurrency: (currency: string) => void;
   setValue: (currency: string) => void;
   value: string;
-  inputDisabled: boolean;
+  inputDisabled?: boolean;
 };
 
 const CurrencyItem: FC<CurrencyItemProps> = ({
