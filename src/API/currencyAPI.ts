@@ -16,4 +16,11 @@ export const currencyAPI = {
       axiosInstance.get(`currencies?additionalInfo=symbol`)
     );
   },
+
+  async centralBankRates(central_bank: string, amount: number) {
+    const params = { central_bank, to: "*", amount, decimal_places: 2 };
+    return baseRequest(() =>
+      axiosInstance.get("central_bank_rate", { params })
+    );
+  },
 };

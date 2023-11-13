@@ -1,9 +1,9 @@
 import { FC } from "react";
 import Input from "../../../shared/Input/Input";
-import { Autocomplete, TextField } from "@mui/material";
 import { useSelector } from "react-redux";
 import { getSymbols } from "../../../../store/symbolsSlice";
 import styles from "./CurrencyItem.module.css";
+import Select from "../../../shared/Select/Select";
 
 type CurrencyItemProps = {
   currency: string;
@@ -31,22 +31,7 @@ const CurrencyItem: FC<CurrencyItemProps> = ({
       {symbols.length && (
         <div className={styles.item}>
           <Input {...{ handleChange: setValue, value, inputDisabled, label }} />
-          <Autocomplete
-            id="currency-select"
-            options={symbols}
-            renderInput={(params) => (
-              <TextField
-                variant="standard"
-                {...params}
-                label="Currency"
-
-              />
-            )}
-            getOptionLabel={(option) => option.iso}
-            onChange={(e, newValue) => newValue && setCurrency(newValue?.iso)}
-            value={initialCurrency}
-            sx={{ width: "100px" }}
-          />
+          <Select getOptionLabel={(option) => option.iso} value={initialCurrency} options={symbols} changeValue={(newValue) => newValue && setCurrency(newValue?.iso)} />
         </div>
       )}
     </>

@@ -14,6 +14,7 @@ const MainPage: FC = () => {
 
   const convertTo = searchParams.get("to") || "";
   const convertFrom = searchParams.get("from") || "";
+  
 
   const changePlaces = () => {
     const [newInitial, newChanged, newInitialCurrency, newChangedCurrency] = [
