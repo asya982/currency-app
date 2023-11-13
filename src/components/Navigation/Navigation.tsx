@@ -26,27 +26,27 @@ const Navigation: FC<NavigationProps> = ({ open, setOpen }) => {
       >
         <Menu color="inherit" />
       </IconButton>
-      <Box
-        component="nav"
-        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+      <Drawer
+        variant="temporary"
+        open={open}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: false,
+        }}
+        sx={{
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: drawerWidth,
+            display: "flex",
+            flexDirection: "column",
+            gap: "30px",
+            padding: "20px",
+          },
+        }}
       >
-        <Drawer
-          variant="temporary"
-          open={open}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-              display: "flex",
-              flexDirection: "column",
-              gap: "30px",
-              padding: "20px",
-            },
-          }}
+        <Box
+          component="nav"
+          onClick={handleDrawerToggle}
         >
           <div className={styles.title}>
             <h3>Currency app</h3>
@@ -58,8 +58,8 @@ const Navigation: FC<NavigationProps> = ({ open, setOpen }) => {
             </IconButton>
           </div>
           <NavItems />
-        </Drawer>
-      </Box>
+        </Box>
+      </Drawer>
     </div>
   );
 };

@@ -11,24 +11,20 @@ const MainPage: FC = () => {
   const [initialItem, setInitialItem] = useState("");
   const [changedItem, setChangedItem] = useState("0");
   const [error, setError] = useState(null);
-  const [initialCurrency, setInitialCurrency] = useState(
-    searchParams.get("from") || ""
-  );
-  const [changedCurrency, setChangedCurrency] = useState(
-    searchParams.get("to") || ""
-  );
+
+  const convertTo = searchParams.get("to") || "";
+  const convertFrom = searchParams.get("from") || "";
 
   const changePlaces = () => {
     const [newInitial, newChanged, newInitialCurrency, newChangedCurrency] = [
       changedItem,
       initialItem,
-      changedCurrency,
-      initialCurrency,
+      convertTo,
+      convertFrom,
     ];
     setInitialItem(newInitial);
     setChangedItem(newChanged);
-    setInitialCurrency(newInitialCurrency);
-    setChangedCurrency(newChangedCurrency);
+    setSearchParams({ from: newInitialCurrency, to: newChangedCurrency });
   };
 
   const fetchCurrency = async (from: string, to: string, amount: number) => {
@@ -42,25 +38,17 @@ const MainPage: FC = () => {
 
   const syncCurrency = (param: string, value: string): void => {
     if (!value) return;
-    const currentParam = searchParams.get(param);
-    if (currentParam !== value) {
-      setSearchParams({
-        ...Object.fromEntries([...searchParams]),
-        [param]: value,
-      });
-    }
+    setSearchParams({
+      ...Object.fromEntries([...searchParams]),
+      [param]: value,
+    });
   };
 
   useEffect(() => {
-    if (initialItem && initialCurrency && changedCurrency) {
-      fetchCurrency(initialCurrency, changedCurrency, Number(initialItem));
+    if (initialItem && convertFrom && convertTo) {
+      fetchCurrency(convertFrom, convertTo, Number(initialItem));
     }
-  }, [initialItem, initialCurrency, changedCurrency]);
-
-  useEffect(() => {
-    syncCurrency("from", initialCurrency);
-    syncCurrency("to", changedCurrency);
-  }, [initialCurrency, changedCurrency]);
+  }, [initialItem, convertFrom, convertTo]);
 
   return (
     <article className={styles.MainPage}>
@@ -68,9 +56,9 @@ const MainPage: FC = () => {
       <section className={styles.currencyFields}>
         <CurrencyItem
           value={initialItem}
-          setCurrency={setInitialCurrency}
+          setCurrency={(currency: string) => syncCurrency("from", currency)}
           setValue={setInitialItem}
-          currency={initialCurrency}
+          currency={convertFrom}
           inputDisabled={false}
         />
         <Tooltip title="Change places" arrow>
@@ -80,9 +68,9 @@ const MainPage: FC = () => {
         </Tooltip>
         <CurrencyItem
           value={changedItem}
-          setCurrency={setChangedCurrency}
+          setCurrency={(currency: string) => syncCurrency("to", currency)}
           setValue={setChangedItem}
-          currency={changedCurrency}
+          currency={convertTo}
           inputDisabled={true}
           label="Converted value"
         />
